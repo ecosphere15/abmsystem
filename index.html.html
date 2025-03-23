@@ -1,0 +1,153 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automated Biodiversity Monitoring System (ABM)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #dff6e3, #b3e5d2);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #228B22;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            padding: 2rem;
+        }
+
+        h2 {
+            color: #228B22;
+            text-align: center;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        select, textarea, input[type="text"] {
+            width: 100%;
+            margin: 0.5rem 0 1.5rem 0;
+            padding: 0.8rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #228B22;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+            button:hover {
+                background-color: #1c6b1c;
+            }
+
+        .response {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .alert {
+            color: red;
+            font-weight: bold;
+        }
+
+        .caution {
+            color: orange;
+            font-weight: bold;
+        }
+
+        .normal {
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>Automated Biodiversity Monitoring System (ABM)</header>
+    <div class="container">
+        <h2>Drone Data Submission Form</h2>
+        <form id="abm-form">
+            <label for="environment">Environment Type:</label>
+            <select id="environment" name="environment">
+                <option value="desert">Desert</option>
+                <option value="mangrove">Mangrove</option>
+                <option value="wetland">Wetland</option>
+                <option value="marine">Marine</option>
+                <option value="mountain">Mountain</option>
+            </select>
+
+            <label for="species">Species Focus (if any):</label>
+            <input type="text" id="species" name="species" placeholder="e.g., Flamingos, Ghaf Trees, Hawksbill Turtles">
+
+            <label for="issues">Observations or Issues (if any):</label>
+            <textarea id="issues" name="issues" placeholder="Describe any observed issues (e.g., habitat damage, pollution)..."></textarea>
+
+            <label for="images">Drone Image Data (Upload):</label>
+            <input type="file" id="images" name="images" accept="image/*">
+
+            <button type="button" onclick="generateResponse()">Submit Data</button>
+        </form>
+
+        <div id="ai-response" class="response" style="display: none;"></div>
+    </div>
+
+    <script>
+        function generateResponse() {
+            const environment = document.getElementById('environment').value;
+            const species = document.getElementById('species').value || "various species";
+            const issues = document.getElementById('issues').value.trim();
+
+            let response = "<h3>AI Analysis and Recommendations</h3>";
+
+            if (issues) {
+                response += `<p class='alert'>Urgent Issue Detected: ${issues}</p>`;
+                response += `<p>The drone has identified a critical issue in the <strong>${environment}</strong> environment, affecting <strong>${species}</strong>. Immediate action is required to mitigate the damage. Possible causes include human activities, pollution, or natural disturbances.</p>`;
+                response += `<p>Next Steps:</p>`;
+                response += `<ul>
+                        <li>Conduct a detailed field investigation to confirm and document the issue.</li>
+                        <li>Engage local conservation teams to address habitat damage and pollution.</li>
+                        <li>Implement protective measures, such as fencing or signage, to prevent further harm.</li>
+                        <li>Monitor the area closely over the next 6 months to ensure recovery.</li>
+                    </ul>`;
+            } else {
+                response += `<p class='normal'>No urgent issues detected in the <strong>${environment}</strong> environment for <strong>${species}</strong>.</p>`;
+                response += `<p>Next Steps:</p>`;
+                response += `<ul>
+                        <li>Regular monitoring using drone systems to ensure continued stability.</li>
+                        <li>Enhance preventive measures, such as community awareness programs and waste management initiatives.</li>
+                        <li>Collaborate with environmental researchers to strengthen the resilience of <strong>${environment}</strong> ecosystems.</li>
+                    </ul>`;
+            }
+
+            document.getElementById('ai-response').innerHTML = response;
+            document.getElementById('ai-response').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
+
+
+
